@@ -50,6 +50,9 @@ public class InventarioUsuarioService {
     }
 
     private InventarioUsuarioDTO convertToDTO(InventarioUsuario inventarioUsuario) {
+        if (inventarioUsuario == null) {
+            return new InventarioUsuarioDTO(); // Retorna un DTO vacío
+        }
         InventarioUsuarioDTO dto = new InventarioUsuarioDTO();
         dto.setId(inventarioUsuario.getId());
         dto.setUsuarioId(inventarioUsuario.getUsuario().getId());
