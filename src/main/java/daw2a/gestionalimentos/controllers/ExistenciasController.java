@@ -59,7 +59,7 @@ public class ExistenciasController {
 
     @GetMapping("/ordenadas-por-fecha")
     public Page<ExistenciasDTO> getExistenciasOrderedByFechaEntrada(Pageable pageable) {
-        return existenciasService.findByOrderByFechaEntradaAsc(pageable);
+        return existenciasService.findAllByOrderByFechaEntradaAsc(pageable);
     }
 
     @GetMapping("/ubicacion/{ubicacionId}")

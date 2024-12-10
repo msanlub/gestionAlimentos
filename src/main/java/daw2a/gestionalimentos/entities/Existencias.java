@@ -19,7 +19,7 @@ public class Existencias {
     private Long id;
 
     private int cantidad_alimento;
-    private LocalDate fecha_entrada;
+    private LocalDate fechaEntrada;
 
     @ManyToOne
     @JoinColumn(name = "alimento_id")

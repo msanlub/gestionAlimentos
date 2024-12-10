@@ -1,6 +1,5 @@
 package daw2a.gestionalimentos.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +19,7 @@ public class Alimento {
     private Long id;
 
     private String nombre;
-    private LocalDate fecha_caducidad;
+    private LocalDate fechaCaducidad;
     private boolean abierto;
     private boolean perecedero;
 

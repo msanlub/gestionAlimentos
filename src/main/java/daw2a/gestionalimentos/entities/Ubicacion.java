@@ -23,7 +23,8 @@ public class Ubicacion {
     private int capacidad;
 
     @Enumerated(EnumType.STRING)
-    private Tipo_ubicacion tipo_ubicacion;
+    @Column(name = "tipo_ubicacion")
+    private Tipo_ubicacion tipoUbicacion;
 
     @OneToMany(mappedBy = "ubicacion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference  // Lado propietario de la relación

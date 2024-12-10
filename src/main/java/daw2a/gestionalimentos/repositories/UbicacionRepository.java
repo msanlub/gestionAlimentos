@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UbicacionRepository extends JpaRepository<Ubicacion, Long> {
-    Page<Ubicacion> findByTipoUbicacion(Tipo_ubicacion tipo, Pageable pageable);
+    Page<Ubicacion> findByTipoUbicacion(Tipo_ubicacion tipo_ubicacion, Pageable pageable);
 }

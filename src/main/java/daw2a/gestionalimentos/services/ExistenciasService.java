@@ -41,7 +41,7 @@ public class ExistenciasService {
     public ExistenciasDTO createExistencias(ExistenciasCreateDTO createDTO) {
         Existencias existencias = new Existencias();
         existencias.setCantidad_alimento(createDTO.getCantidadAlimento());
-        existencias.setFecha_entrada(createDTO.getFechaEntrada());
+        existencias.setFechaEntrada(createDTO.getFechaEntrada());
         existencias.setAlimento(alimentoRepository.findById(createDTO.getAlimentoId()).orElseThrow());
         existencias.setUbicacion(ubicacionRepository.findById(createDTO.getUbicacionId()).orElseThrow());
         return convertToDTO(existenciasRepository.save(existencias));
@@ -52,7 +52,7 @@ public class ExistenciasService {
         if (existenciasOptional.isPresent()) {
             Existencias existencias = existenciasOptional.get();
             existencias.setCantidad_alimento(updateDTO.getCantidadAlimento());
-            existencias.setFecha_entrada(updateDTO.getFechaEntrada());
+            existencias.setFechaEntrada(updateDTO.getFechaEntrada());
             existencias.setAlimento(alimentoRepository.findById(updateDTO.getAlimentoId()).orElseThrow());
             existencias.setUbicacion(ubicacionRepository.findById(updateDTO.getUbicacionId()).orElseThrow());
             return Optional.of(convertToDTO(existenciasRepository.save(existencias)));
@@ -74,8 +74,8 @@ public class ExistenciasService {
                 .collect(Collectors.toList());
     }
 
-    public Page<ExistenciasDTO> findByOrderByFechaEntradaAsc(Pageable pageable) {
-        return existenciasRepository.findByOrderByFecha_entradaAsc(pageable).map(this::convertToDTO);
+    public Page<ExistenciasDTO> findAllByOrderByFechaEntradaAsc(Pageable pageable) {
+        return existenciasRepository.findAllByOrderByFechaEntradaAsc(pageable).map(this::convertToDTO);
     }
 
     public List<ExistenciasDTO> findByUbicacionId(Long ubicacionId) {
@@ -88,7 +88,7 @@ public class ExistenciasService {
         ExistenciasDTO dto = new ExistenciasDTO();
         dto.setId(existencias.getId());
         dto.setCantidadAlimento(existencias.getCantidad_alimento());
-        dto.setFechaEntrada(existencias.getFecha_entrada());
+        dto.setFechaEntrada(existencias.getFechaEntrada());
         dto.setAlimentoId(existencias.getAlimento().getId());
         dto.setUbicacionId(existencias.getUbicacion().getId());
         return dto;

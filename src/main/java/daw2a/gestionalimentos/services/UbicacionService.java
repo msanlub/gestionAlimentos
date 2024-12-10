@@ -33,7 +33,7 @@ public class UbicacionService {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDescripcion(createDTO.getDescripcion());
         ubicacion.setCapacidad(createDTO.getCapacidad());
-        ubicacion.setTipo_ubicacion(createDTO.getTipoUbicacion());
+        ubicacion.setTipoUbicacion(createDTO.getTipoUbicacion());
         return convertToDTO(ubicacionRepository.save(ubicacion));
     }
 
@@ -43,7 +43,7 @@ public class UbicacionService {
             Ubicacion ubicacion = ubicacionOptional.get();
             ubicacion.setDescripcion(updateDTO.getDescripcion());
             ubicacion.setCapacidad(updateDTO.getCapacidad());
-            ubicacion.setTipo_ubicacion(updateDTO.getTipoUbicacion());
+            ubicacion.setTipoUbicacion(updateDTO.getTipoUbicacion());
             return Optional.of(convertToDTO(ubicacionRepository.save(ubicacion)));
         }
         return Optional.empty();
@@ -57,8 +57,8 @@ public class UbicacionService {
         return false;
     }
 
-    public Page<UbicacionDTO> getUbicacionesByTipo(Tipo_ubicacion tipo, Pageable pageable) {
-        return ubicacionRepository.findByTipoUbicacion(tipo, pageable).map(this::convertToDTO);
+    public Page<UbicacionDTO> getUbicacionesByTipo(Tipo_ubicacion tipo_ubicacion, Pageable pageable) {
+        return ubicacionRepository.findByTipoUbicacion(tipo_ubicacion, pageable).map(this::convertToDTO);
     }
 
     private UbicacionDTO convertToDTO(Ubicacion ubicacion) {
@@ -66,7 +66,7 @@ public class UbicacionService {
         dto.setId(ubicacion.getId());
         dto.setDescripcion(ubicacion.getDescripcion());
         dto.setCapacidad(ubicacion.getCapacidad());
-        dto.setTipoUbicacion(ubicacion.getTipo_ubicacion());
+        dto.setTipoUbicacion(ubicacion.getTipoUbicacion());
         return dto;
     }
 }

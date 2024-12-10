@@ -52,7 +52,7 @@ public class UbicacionController {
     }
 
     @GetMapping("/tipo/{tipo}")
-    public Page<UbicacionDTO> getUbicacionesByTipo(@PathVariable Tipo_ubicacion tipo, Pageable pageable) {
-        return ubicacionService.getUbicacionesByTipo(tipo, pageable);
+    public Page<UbicacionDTO> getUbicacionesByTipo(@PathVariable Tipo_ubicacion tipo_ubicacion, Pageable pageable) {
+        return ubicacionService.getUbicacionesByTipo(tipo_ubicacion, pageable);
     }
 }

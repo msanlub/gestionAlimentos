@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/alimentos")
 public class AlimentoController {
@@ -56,13 +58,18 @@ public class AlimentoController {
     }
 
     @GetMapping("/conExistencias")
-    public Page<AlimentoDTO> buscarConExistencias(Pageable pageable) {
-        return alimentoService.findAlimentoByExistencias(pageable);
+    public Page<AlimentoDTO> buscarConExistencias(int existencias, Pageable pageable) {
+        return alimentoService.findAlimentoByExistencias(existencias, pageable);
+    }
+
+    @GetMapping("/perecederos")
+    public Page<AlimentoDTO> buscarPerecederos(boolean perecedero, Pageable pageable) {
+        return alimentoService.findAlimentoByPerecedero(perecedero, pageable);
     }
 
     @GetMapping("/abiertos")
-    public Page<AlimentoDTO> buscarAbiertos(Pageable pageable) {
-        return alimentoService.findAlimentoByAbierto(pageable);
+    public Page<AlimentoDTO> buscarAbiertos(boolean abierto, Pageable pageable) {
+        return alimentoService.findAlimentoByAbierto(abierto, pageable);
     }
 
     @GetMapping("/porCaducidad")

@@ -14,7 +14,7 @@ public interface ExistenciasRepository  extends JpaRepository<Existencias,Long> 
     List<Existencias> findByAlimentoId(Long alimento_id);
 
     // Obtiene las existencias ordenadas por fecha de entrada (más antiguas primero, FIFO)
-    Page<Existencias> findByOrderByFecha_entradaAsc(Pageable pageable);
+    Page<Existencias> findAllByOrderByFechaEntradaAsc(Pageable pageable);
 
     //Obtiene las existencias por ubicacion
     List<Existencias> findByUbicacionId(Long ubicacion_id);

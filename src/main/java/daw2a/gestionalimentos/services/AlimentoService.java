@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -35,7 +36,7 @@ public class AlimentoService {
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {
         Alimento alimento = new Alimento();
         alimento.setNombre(createDTO.getNombre());
-        alimento.setFecha_caducidad(createDTO.getFechaCaducidad());
+        alimento.setFechaCaducidad(createDTO.getFechaCaducidad());
         alimento.setAbierto(createDTO.isAbierto());
         alimento.setPerecedero(createDTO.isPerecedero());
         alimento.setInventarioUsuario(inventarioUsuarioRepository.findById(createDTO.getInventarioUsuarioId()).orElseThrow());
@@ -47,7 +48,7 @@ public class AlimentoService {
         if (alimentoOptional.isPresent()) {
             Alimento alimento = alimentoOptional.get();
             alimento.setNombre(updateDTO.getNombre());
-            alimento.setFecha_caducidad(updateDTO.getFechaCaducidad());
+            alimento.setFechaCaducidad(updateDTO.getFechaCaducidad());
             alimento.setAbierto(updateDTO.isAbierto());
             alimento.setPerecedero(updateDTO.isPerecedero());
             alimento.setInventarioUsuario(inventarioUsuarioRepository.findById(updateDTO.getInventarioUsuarioId()).orElseThrow());
@@ -68,23 +69,27 @@ public class AlimentoService {
         return alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> findAlimentoByExistencias(Pageable pageable) {
-        return alimentoRepository.findAlimentoByExistencias(pageable).map(this::convertToDTO);
+    public Page<AlimentoDTO> findAlimentoByExistencias(int existencias, Pageable pageable) {
+        return alimentoRepository.findAlimentoByExistencias(existencias, pageable).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> findAlimentoByAbierto(Pageable pageable) {
-        return alimentoRepository.findAlimentoByAbierto(pageable).map(this::convertToDTO);
+    public Page<AlimentoDTO> findAlimentoByPerecedero(boolean perecedero, Pageable pageable) {
+        return alimentoRepository.findAlimentoByPerecedero(perecedero, pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> findAlimentoByAbierto(boolean abierto, Pageable pageable) {
+        return alimentoRepository.findAlimentoByAbierto(abierto, pageable).map(this::convertToDTO);
     }
 
     public Page<AlimentoDTO> findOrderByFechaCaducidadAsc(Pageable pageable) {
-        return alimentoRepository.findOrderByFecha_caducidadAsc(pageable).map(this::convertToDTO);
+        return alimentoRepository.findAllByOrderByFechaCaducidadAsc(pageable).map(this::convertToDTO);
     }
 
     private AlimentoDTO convertToDTO(Alimento alimento) {
         AlimentoDTO dto = new AlimentoDTO();
         dto.setId(alimento.getId());
         dto.setNombre(alimento.getNombre());
-        dto.setFechaCaducidad(alimento.getFecha_caducidad());
+        dto.setFechaCaducidad(alimento.getFechaCaducidad());
         dto.setAbierto(alimento.isAbierto());
         dto.setPerecedero(alimento.isPerecedero());
         dto.setInventarioUsuarioId(alimento.getInventarioUsuario().getId());

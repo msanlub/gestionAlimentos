@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
 @Repository
 public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
     // Aquí podemos agregar métodos de consulta personalizados si fuera necesario
@@ -13,11 +15,14 @@ public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
     Page<Alimento> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
 
     //busqueda por si hay almacenado
-    Page<Alimento> findAlimentoByExistencias(Pageable pageable);
+    Page<Alimento> findAlimentoByExistencias(int existencias, Pageable pageable);
+
+    //busqueda por si es perecedero
+    Page<Alimento> findAlimentoByPerecedero(boolean perecedero, Pageable pageable);
 
     //busqueda por si hay abierto para consumir antes
-    Page<Alimento> findAlimentoByAbierto(Pageable pageable);
+    Page<Alimento> findAlimentoByAbierto(boolean abierto, Pageable pageable);
 
     //busqueda por fecha de caducidad reciente
-    Page<Alimento> findOrderByFecha_caducidadAsc(Pageable pageable);
+    Page<Alimento> findAllByOrderByFechaCaducidadAsc(Pageable pageable);
 }
